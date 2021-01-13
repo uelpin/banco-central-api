@@ -1,10 +1,7 @@
-const { promises } = require('fs');
 const http = require('http');
 
-const url = 'oxente-bank.herokuapp.com'
-
 var options = {
-    hostname: url,
+    hostname: 'nigga-bank.herokuapp.com',
     headers: {
         'Content-Type': 'application/json',
     }
@@ -16,11 +13,11 @@ function httpRequest(data) {
             response.on('data', d => {
                 resolve(response.statusCode)
             })
-        })
 
-        request.on('error', error => {
-            console.error(error)
-            reject(404)
+            response.on('error', error => {
+                console.error(error)
+                reject(400)
+            })
         })
 
         request.write(data)
@@ -28,11 +25,12 @@ function httpRequest(data) {
     })
 }
 
-class OxenteBankController {
-    deposito({ banco, valor }) {
+class NiggaBankController {
+    deposito(info) {
         const data = JSON.stringify({
-            "usuario_id": 1,
-            "valor": valor
+            usuario: info.usuario,
+            banco: info.banco,
+            valor: info.valor
         })
 
         options.method = 'POST'
@@ -42,4 +40,4 @@ class OxenteBankController {
     }
 }
 
-module.exports = new OxenteBankController()
+module.exports = new NiggaBankController() 
