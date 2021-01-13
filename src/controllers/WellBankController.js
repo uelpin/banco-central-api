@@ -1,10 +1,7 @@
-const { promises } = require('fs');
 const http = require('http');
 
-const url = 'well-bank.herokuapp.com'
-
 var options = {
-    hostname: url,
+    hostname: 'well-bank.herokuapp.com',
     headers: {
         'Content-Type': 'application/json',
     }
@@ -19,24 +16,22 @@ function httpRequest(data) {
 
             response.on('error', error => {
                 console.error(error)
-                reject(404)
+                reject(400)
             })
         })
 
         request.write(data)
         request.end()
-
     })
 }
 
 class wellBankController {
     deposito(info) {
         const data = JSON.stringify({
-            "usuario": info.nome,
-            "valor": info.valor
+            usuario: info.usuario,
+            valor: info.valor
         })
 
-        console.log(info.usuario, info.valor)
         options.method = 'POST'
         options.path = '/deposito'
 

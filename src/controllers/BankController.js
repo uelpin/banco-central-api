@@ -13,14 +13,10 @@ const depositFunctions = [
 
 class BankController {
     async deposito(req, res) {
-        const { banco } = req.body
-
-        const index = bankNames.indexOf(banco)
+        const index = bankNames.indexOf(req.body.banco)
 
         if (index == -1) res.status(404).json({ message: "Banco não encontrado", status: 404 })
 
-        var { valor } = req.body
-        console.log(valor)
         let statusCode = await depositFunctions[index](req.body)
 
         res.status(200)
