@@ -1,14 +1,17 @@
 const OxenteBankController = require('../controllers/OxenteBankController')
 const wellBankController = require('../controllers/WellBankController')
+const NiggaBankController = require('./NiggaBankController')
 
 const bankNames = [
     'oxente-bank',
-    'well-bank'
+    'well-bank',
+    'nigga-bank'
 ]
 
 const depositFunctions = [
     OxenteBankController.deposito,
-    wellBankController.deposito
+    wellBankController.deposito,
+    NiggaBankController.deposito
 ]
 
 class BankController {
