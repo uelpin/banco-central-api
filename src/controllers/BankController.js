@@ -1,22 +1,27 @@
 const OxenteBankController = require('../controllers/OxenteBankController')
+const wellBankController = require('../controllers/WellBankController')
 
 const bankNames = [
     'oxente-bank',
+    'well-bank'
 ]
 
 const depositFunctions = [
     OxenteBankController.deposito,
+    wellBankController.deposito
 ]
 
 class BankController {
     async deposito(req, res) {
-        const { usuario, banco, valor } = req.body
+        const { banco } = req.body
 
         const index = bankNames.indexOf(banco)
 
         if (index == -1) res.status(404).json({ message: "Banco não encontrado", status: 404 })
 
-        let statusCode = await depositFunctions[index]({ usuario, valor })
+        var { valor } = req.body
+        console.log(valor)
+        let statusCode = await depositFunctions[index](req.body)
 
         res.status(200)
         if (statusCode == 200) {
