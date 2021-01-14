@@ -1,6 +1,6 @@
 const OxenteBankController = require('../controllers/OxenteBankController')
 const wellBankController = require('../controllers/WellBankController')
-const NiggaBankController = require('./NiggaBankController')
+const NiggaBankController = require('../controllers/NiggaBankController')
 
 const bankNames = [
     'oxente-bank',
@@ -14,6 +14,10 @@ const depositFunctions = [
     NiggaBankController.deposito
 ]
 
+const withdrawFunctions = [
+    NiggaBankController.saque
+]
+
 class BankController {
     async deposito(req, res) {
         const index = bankNames.indexOf(req.body.banco)
@@ -25,6 +29,21 @@ class BankController {
         res.status(200)
         if (statusCode == 200) {
             res.json({ message: "Depositado com sucesso", status: statusCode })
+        } else {
+            res.json({ message: "Houve um erro", status: statusCode })
+        }
+    }
+
+    async saque(req, res) {
+        const index = bankNames.indexOf(req.body.banco)
+
+        if (index == -1) res.status(404).json({ message: "Banco não encontrado", status: 404 })
+
+        let statusCode = await withdrawFunctions[index](req.body)
+
+        res.status(200)
+        if (statusCode == 200) {
+            res.json({ message: "Saque com sucesso", status: statusCode })
         } else {
             res.json({ message: "Houve um erro", status: statusCode })
         }
