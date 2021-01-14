@@ -38,6 +38,19 @@ class NiggaBankController {
 
         return httpRequest(data)
     }
+
+    saque(info) {
+        const data = JSON.stringify({
+            usuario: info.usuario,
+            banco: info.banco,
+            valor: info.valor
+        })
+
+        options.method = 'POST'
+        options.path = '/saque'
+
+        return httpRequest(data)
+    }
 }
 
 module.exports = new NiggaBankController() 
