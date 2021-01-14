@@ -37,6 +37,62 @@ class wellBankController {
 
         return httpRequest(data)
     }
+
+    saque(info) {
+        const data = json.stringify({
+            usuario: info.usuario,
+            valor: info.valor
+        })
+
+        options.method = 'POST'
+        options.path = '/deposito'
+
+        return httpRequest(data)
+    }
+
+    pagamento(info) {
+        const data = json.stringify({
+            usuaro: info.usuario,
+            valor: info.valor,
+            codigo: info.codigo
+        })
+
+        options.method = 'POST'
+        options.path = '/pagamento'
+
+        return httpRequest(data)
+    }
+
+    transferencia(info) {
+        var data
+        if (info.banco_debito == 'well-bank') {
+            data = json.stringify({
+                usuario: info.usuario,
+                valor: info.usuario
+            })
+        }
+        else {
+            data = json.stringify({
+                conta_credito: info.conta_credito,
+                valor: info.usuario
+            })
+        }
+
+        options.mathod = 'POST'
+        options.path = '/transferencia'
+
+        return httpRequest(data)
+    }
+    info(info) {
+        const data = json.stringify({
+            usuario: info.usuario
+        })
+
+        options.method = 'GET'
+        options.path = '/info'
+
+        return httpRequest(data)
+    }
 }
 
 module.exports = new wellBankController() 
