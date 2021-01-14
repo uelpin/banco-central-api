@@ -15,6 +15,8 @@ const depositFunctions = [
 ]
 
 const withdrawFunctions = [
+    null,
+    null,
     NiggaBankController.saque
 ]
 
