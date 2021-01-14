@@ -16,8 +16,23 @@ const depositFunctions = [
 
 const withdrawFunctions = [
     null,
-    null,
+    wellBankController.saque,
     NiggaBankController.saque
+]
+
+const paymentsFunctions = [
+    null,
+    wellBankController.pagamento
+]
+
+const transferFunctions = [
+    null,
+    wellBankController.transferencia
+]
+
+const infoFunctions = [
+    null,
+    wellBankController.info,
 ]
 
 class BankController {
@@ -50,6 +65,22 @@ class BankController {
             res.json({ message: "Houve um erro", status: statusCode })
         }
     }
+
+    async pagamento(req, res) {
+        const index = bankNames.indexOf(req.body.banco)
+
+        if (index == -1) res.status(404).json({ message: "Banco não encontrado", status: 404 })
+
+        let statusCode = await paymentsFunctions[index](req.body)
+
+        res.status(200)
+        if (statusCode == 200) {
+            res.json({ message: "Pagamento realizado com sucesso", status: statusCode })
+        } else {
+            res.json({ message: "Houve um erro", status: statusCode })
+        }
+    }
+
 }
 
 module.exports = new BankController()

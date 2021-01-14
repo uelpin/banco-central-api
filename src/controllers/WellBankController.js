@@ -39,19 +39,19 @@ class wellBankController {
     }
 
     saque(info) {
-        const data = json.stringify({
+        const data = JSON.stringify({
             usuario: info.usuario,
             valor: info.valor
         })
 
         options.method = 'POST'
-        options.path = '/deposito'
+        options.path = '/saque'
 
         return httpRequest(data)
     }
 
     pagamento(info) {
-        const data = json.stringify({
+        const data = JSON.stringify({
             usuaro: info.usuario,
             valor: info.valor,
             codigo: info.codigo
@@ -66,13 +66,13 @@ class wellBankController {
     transferencia(info) {
         var data
         if (info.banco_debito == 'well-bank') {
-            data = json.stringify({
+            data = JSON.stringify({
                 usuario: info.usuario,
                 valor: info.usuario
             })
         }
         else {
-            data = json.stringify({
+            data = JSON.stringify({
                 conta_credito: info.conta_credito,
                 valor: info.usuario
             })
@@ -84,7 +84,7 @@ class wellBankController {
         return httpRequest(data)
     }
     info(info) {
-        const data = json.stringify({
+        const data = JSON.stringify({
             usuario: info.usuario
         })
 
