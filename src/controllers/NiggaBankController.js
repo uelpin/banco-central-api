@@ -1,7 +1,7 @@
 const http = require('http');
 
 var options = {
-    hostname: 'well-bank.herokuapp.com',
+    hostname: 'nigga-bank.herokuapp.com',
     headers: {
         'Content-Type': 'application/json',
     }
@@ -25,10 +25,11 @@ function httpRequest(data) {
     })
 }
 
-class wellBankController {
+class NiggaBankController {
     deposito(info) {
         const data = JSON.stringify({
             usuario: info.usuario,
+            banco: info.banco,
             valor: info.valor
         })
 
@@ -37,6 +38,19 @@ class wellBankController {
 
         return httpRequest(data)
     }
+
+    saque(info) {
+        const data = JSON.stringify({
+            usuario: info.usuario,
+            banco: info.banco,
+            valor: info.valor
+        })
+
+        options.method = 'POST'
+        options.path = '/saque'
+
+        return httpRequest(data)
+    }
 }
 
-module.exports = new wellBankController() 
+module.exports = new NiggaBankController() 
